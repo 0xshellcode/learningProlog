@@ -45,6 +45,18 @@ somebodyLikesHim(Y):-
     woman(X),
     likes(X, Y). % To be read as: She (X), likes him (Y)
 
+blindDateProposal(X, Y):-
+    weCanProposeADate,
+    man(X),
+    woman(Y).
+
+dateProposal(X, Y):-
+    weCanProposeADate,
+    man(X),
+    woman(Y),
+    likes(X, Y),
+    likes(Y, X).
+
 
 % Execution
 
@@ -65,5 +77,15 @@ main :-
     writeln('Yes we can do it'),
     somebodyLikesHim(LuckyGuy),
     writeln(LuckyGuy),
-    findall(Guys, somebodyLikesHim(Guys), LuckyGuys),
-    writeln(LuckyGuys).
+    writeln('----------------'),
+    blindDateProposal(Man, Woman),
+    writeln(Man),
+    writeln(Woman),
+    writeln('----------------'),
+    findall((Him, Her), blindDateProposal(Him, Her), DateList),
+    writeln(DateList),
+    writeln('----------------'),
+    dateProposal(He, She),
+    writeln(He),
+    writeln(She).
+    
