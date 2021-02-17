@@ -5,6 +5,9 @@
 writeln(X):-
     write(X),
     write('\n').
+    
+not(X):-
+    \+X. % Original not
 
 % Facts  or Predicates
 % Arity = number of arguments
@@ -23,6 +26,7 @@ man(ringo).
 woman(shakira).
 woman(miley).
 woman(selena).
+woman(maria).
 
 % Predicates Arity 2
 
@@ -44,6 +48,10 @@ somebodyLikesHim(Y):-
     man(Y),
     woman(X),
     likes(X, Y). % To be read as: She (X), likes him (Y)
+    
+nobodyLikesHim(X):-
+    man(X),
+    not(somebodyLikesHim(X)).
 
 blindDateProposal(X, Y):-
     weCanProposeADate,
@@ -56,6 +64,14 @@ dateProposal(X, Y):-
     woman(Y),
     likes(X, Y),
     likes(Y, X).
+    
+showAllMan:-
+    findall(men, man(men), List),
+    writeln(List).
+
+showWhoLikesWho:-
+    findall((A, B), likes(A,B), List),
+    writeln(List).
 
 
 % Execution
@@ -87,5 +103,11 @@ main :-
     writeln('----------------'),
     dateProposal(He, She),
     writeln(He),
-    writeln(She).
+    writeln(She),
+    writeln('----------------'),
+    nobodyLikesHim(PoorGuy),
+    writeln(PoorGuy),
+    writeln('----------------'),
+    findall(PoorGuys, nobodyLikesHim(PoorGuys), PoorGuysList),
+    writeln(PoorGuysList).
     
