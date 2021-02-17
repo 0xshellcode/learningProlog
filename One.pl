@@ -76,7 +76,7 @@ showWhoLikesWho:-
 
 % Execution
 
-main :-
+main:-
     weHaveAPlace,
     writeln('Hello World!'),
     man(X),
